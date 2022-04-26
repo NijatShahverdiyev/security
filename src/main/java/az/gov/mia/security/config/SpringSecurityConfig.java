@@ -17,14 +17,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.apply(authFilterConfigAdapter);
         http.authorizeRequests()
-                .antMatchers("/demo")
-                .permitAll()
+                .antMatchers("/demo").permitAll()
+                .antMatchers("/auth/sign-in", "/auth/refresh-token").permitAll()
                 .antMatchers("/demo-user").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/demo-admin").hasAnyRole("ADMIN");
+                .antMatchers("/demo-admin").hasAnyRole("ADMIN")
+                .and()
+                .csrf().disable()
+                .httpBasic();
         super.configure(http);
     }
 

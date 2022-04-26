@@ -1,6 +1,6 @@
 package az.gov.mia.security.config;
 
-import az.gov.mia.security.finters.JwtFilter;
+import az.gov.mia.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

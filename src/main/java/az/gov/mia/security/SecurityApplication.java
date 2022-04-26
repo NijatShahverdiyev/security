@@ -26,7 +26,7 @@ public class SecurityApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		User user  =new User();
 		user.setUsername("admin");
-		user.setPassword(encoder.encode("12345"));
+		user.setPassword(encoder.encode("admin"));
 		user.setAccountNonExpired(true);
 		user.setAccountNonLocked(true);
 		user.setEnabled(true);
@@ -34,11 +34,10 @@ public class SecurityApplication implements CommandLineRunner {
 
 		Authority adminRole = new Authority();
 		adminRole.setAuthority("ROLE_ADMIN");
-
 		Authority userRole = new Authority();
 		userRole.setAuthority("ROLE_USER");
 
 		user.setAuthorities(List.of(adminRole, userRole));
-		repository.save(user);
+		User newUser = repository.save(user);
 	}
 }
