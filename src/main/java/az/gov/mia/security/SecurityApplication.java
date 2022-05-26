@@ -4,6 +4,7 @@ import az.gov.mia.security.auth.domain.Authority;
 import az.gov.mia.security.auth.domain.User;
 import az.gov.mia.security.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @SpringBootApplication
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityApplication implements CommandLineRunner {
 
 	private final PasswordEncoder encoder;
@@ -25,8 +27,8 @@ public class SecurityApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		User user  =new User();
-		user.setUsername("admin");
-		user.setPassword(encoder.encode("admin"));
+		user.setUsername("nicat");
+		user.setPassword(encoder.encode("1234"));
 		user.setAccountNonExpired(true);
 		user.setAccountNonLocked(true);
 		user.setEnabled(true);
@@ -39,5 +41,6 @@ public class SecurityApplication implements CommandLineRunner {
 
 		user.setAuthorities(List.of(adminRole, userRole));
 		User newUser = repository.save(user);
+		log.info(String.valueOf(newUser));
 	}
 }

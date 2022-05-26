@@ -8,6 +8,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class RefreshTokenDto {
+
     private String token;
+
     private Date eat;
 }

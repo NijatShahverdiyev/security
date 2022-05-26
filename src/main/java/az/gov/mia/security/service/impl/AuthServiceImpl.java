@@ -52,9 +52,8 @@ public class AuthServiceImpl implements AuthService {
                     && userDetails.isCredentialsNonExpired()
                     && userDetails.isEnabled()) {
                 UsernamePasswordAuthenticationToken userPassAuthToken = new UsernamePasswordAuthenticationToken(
-                        userDetails.getUsername(), userDetails.getPassword());
+                        userDetails.getUsername(), null, userDetails.getAuthorities());
                 refreshToken.setValid(false);
-//                refreshToken.setPreviousRefreshTokenId(refreshTokenDto.getToken());
                 refreshTokenRepository.save(refreshToken);
                 return new SignInResponseDto(jwtService.issueToken(userPassAuthToken),
                         issueRefreshToken(userPassAuthToken, refreshToken.getId()));
@@ -72,6 +71,7 @@ public class AuthServiceImpl implements AuthService {
                 .username(authentication.getName())
                 .token(UUID.randomUUID().toString())
                 .eat(afterAdd10Mins)
+                .valid(true)
                 .previousRefreshTokenId(previousRefreshTokenId)
                 .build();
         refreshTokenRepository.save(refreshToken);
